@@ -15,9 +15,10 @@ defmodule Fluffy.Application do
       # Start Finch
       {Finch, name: Fluffy.Finch},
       # Start the Endpoint (http/https)
-      FluffyWeb.Endpoint
+      FluffyWeb.Endpoint,
       # Start a worker by calling: Fluffy.Worker.start_link(arg)
       # {Fluffy.Worker, arg}
+      Fluffy.CouchDBClient
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
