@@ -70,5 +70,7 @@ config :swoosh, :api_client, false
 
 # Configure CouchDB connection
 config :fluffy, :couchdb,
-  url: "http://couchdb_username:couchdb_password@localhost:5984",
+  user: "COUCHDB USERNAME HERE",
+  pass: "COUCHDB PASSWORD HERE",
+  server: "localhost:5984",
   db_name: "cbctryout"
