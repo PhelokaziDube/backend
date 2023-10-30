@@ -19,12 +19,29 @@ defmodule Fluffy.CouchDBClient do
     GenServer.call(__MODULE__, {:get_document, id})
   end
 
+  def all_dbs(server) do
+    GenServer.call(__MODULE__, {:all_dbs, server})
+  end
+
+  def all_docs(db, options) do
+    headers = Keyword.put_new(options, :accept, "application/json")
+    GenServer.call(__MODULE__, {:all_docs, db, headers})
+  end
+
   def create(id, value) do
     GenServer.call(__MODULE__, {:create, id, value})
   end
 
   def handle_call({:get_document, id}, _from, connection) do
     {:reply, :couchdb_documents.get(connection, id), connection}
+  end
+
+  def handle_call({:all_dbs, server}, _from, connection) do
+    {:reply, :couchdb_documents.get(connection, server), connection}
+  end
+
+  def handle_call({:all_docs, db, options}, _from, connection) do
+    {:reply, :couchdb_documents.get(connection, db, options),  connection}
   end
 
   def handle_call({:create, id, value}, _from, connection) do

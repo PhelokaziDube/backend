@@ -30,6 +30,10 @@ defmodule FluffyWeb.Router do
     # Route for creating a document
     post "/couchdb/documents/:id", CouchDBController, :create
 
+    get "/documents/:db_name" , CouchDBController, :fetch_documents
+
+    get "/couchdb/documents", CouchDBController, :find
+
     # Route for updating a document
     put "/couchdb/documents/:id", CouchDBController, :update
   end
