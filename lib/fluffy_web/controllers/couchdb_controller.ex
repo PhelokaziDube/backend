@@ -26,12 +26,16 @@ defmodule FluffyWeb.CouchDBController do
   end
 
   def find(conn, _) do
-    server = "http://localhost:5984/"
-    case CouchDBClient.all_dbs(server) do
+    case CouchDBClient.all_dbs() do
       {:ok, databases} ->
         conn
         |> put_status(:ok)
         |> json(databases)
+
+      {:error, :unauthenticated} ->
+        conn
+        |> put_status(:unauthorized)
+        |> json(%{"error" => "Unauthenticated.  Probable fix: in Fauxton, go to Configuration options; under the \"chttpd\" section, add the option \"admin_only_all_dbs\" and set it to the value: false"})
 
       {:error, :not_found} ->
         conn
